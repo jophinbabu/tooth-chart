@@ -12,6 +12,331 @@ const chunkArray = (array, size) => {
 };
 
 export default function App() {
+
+  const teethDataJson =  [
+    {
+        "id": "URTM",
+        "name": "Upper Right Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 1,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo":  "URTM",
+        "details": "Diagnosis:root canal"
+    },
+    {
+        "id": "URSM",
+        "name": "Upper Right Second Molar",
+        "type": "Permanent",
+        "number": 2,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URSM",
+        "details": ""
+    },
+    {
+        "id": "URFM",
+        "name": "Upper Right First Molar",
+        "type": "Permanent",
+        "number": 3,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URFM",
+        "details": ""
+    },
+    {
+        "id": "URSP",
+        "name": "Upper Right Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 4,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URSP",
+        "details": ""
+    },
+    {
+        "id": "URFP",
+        "name": "Upper Right First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 5,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URFP",
+        "details": ""
+    },
+    {
+        "id": "URC",
+        "name": "Upper Right Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 6,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URC",
+        "details": ""
+    },
+    {
+        "id": "URLI",
+        "name": "Upper Right Lateral Incisor",
+        "type": "Permanent",
+        "number": 7,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URLI",
+        "details": ""
+    },
+    {
+        "id": "URCI",
+        "name": "Upper Right Central Incisor",
+        "type": "Permanent",
+        "number": 8,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "URCI",
+        "details": ""
+    },
+    {
+        "id": "ULCI",
+        "name": "Upper Left Central Incisor",
+        "type": "Permanent",
+        "number": 9,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULCI",
+        "details": ""
+    },
+    {
+        "id": "ULLI",
+        "name": "Upper Left Lateral Incisor",
+        "type": "Permanent",
+        "number": 10,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULLI",
+        "details": ""
+    },
+    {
+        "id": "ULC",
+        "name": "Upper Left Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 11,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULC",
+        "details": ""
+    },
+    {
+        "id": "ULFP",
+        "name": "Upper Left First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 12,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULFP",
+        "details": ""
+    },
+    {
+        "id": "ULSP",
+        "name": "Upper Left Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 13,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULSP",
+        "details": ""
+    },
+    {
+        "id": "ULFM",
+        "name": "Upper Left First Molar",
+        "type": "Permanent",
+        "number": 14,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULFM",
+        "details": ""
+    },
+    {
+        "id": "ULSM",
+        "name": "Upper Left Second Molar",
+        "type": "Permanent",
+        "number": 15,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULSM",
+        "details": ""
+    },
+    {
+        "id": "ULTM",
+        "name": "Upper Left Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 16,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "ULTM",
+        "details": ""
+    },
+    {
+        "id": "LLTM",
+        "name": "Lower Left Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 17,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLTM",
+        "details": ""
+    },
+    {
+        "id": "LLSM",
+        "name": "Lower Left Second Molar",
+        "type": "Permanent",
+        "number": 18,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLSM",
+        "details": ""
+    },
+    {
+        "id": "LLFM",
+        "name": "Lower Left First Molar",
+        "type": "Permanent",
+        "number": 19,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLFM",
+        "details": ""
+    },
+    {
+        "id": "LLSP",
+        "name": "Lower Left Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 20,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLSP",
+        "details": ""
+    },
+    {
+        "id": "LLFP",
+        "name": "Lower Left First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 21,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLFP",
+        "details": ""
+    },
+    {
+        "id": "LLC",
+        "name": "Lower Left Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 22,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLC",
+        "details": ""
+    },
+    {
+        "id": "LLLI",
+        "name": "Lower Left Lateral Incisor",
+        "type": "Permanent",
+        "number": 23,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLLI",
+        "details": ""
+    },
+    {
+        "id": "LLCI",
+        "name": "Lower Left Central Incisor",
+        "type": "Permanent",
+        "number": 24,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "LLCI",
+        "details": ""
+    },
+    {
+        "id": "LRCI",
+        "name": "Lower Right Central Incisor",
+        "type": "Permanent",
+        "number": 25,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRCI",
+        "details": ""
+    },
+    {
+        "id": "LRLI",
+        "name": "Lower Right Lateral Incisor",
+        "type": "Permanent",
+        "number": 26,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRLI",
+        "details": ""
+    },
+    {
+        "id": "LRC",
+        "name": "Lower Right Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 27,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRC",
+        "details": ""
+    },
+    {
+        "id": "LRFP",
+        "name": "Lower Right First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 28,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRFP",
+        "details": ""
+    },
+    {
+        "id": "LRSP",
+        "name": "Lower Right Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 29,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRSP",
+        "details": ""
+    },
+    {
+        "id": "LRFM",
+        "name": "Lower Right First Molar",
+        "type": "Permanent",
+        "number": 30,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRFM",
+        "details": ""
+    },
+    {
+        "id": "LRSM",
+        "name": "Lower Right Second Molar",
+        "type": "Permanent",
+        "number": 31,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRSM",
+        "details": ""
+    },
+    {
+        "id": "LRTM",
+        "name": "Lower Right Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 32,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "LRTM",
+        "details": ""
+    }
+    
+];
+
   const [selectedTooth, setSelectedTooth] = useState(null);
   const [teethData, setTeethData] = useState(teethDataJson);
 
@@ -65,7 +390,7 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 30,
+    paddingVertical: 20,
     paddingHorizontal: 10,
     backgroundColor: '#f4faff',
     alignItems: 'center',
@@ -78,10 +403,10 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 8,
+    marginBottom: 1,
     color: '#333',
   },
   spacer: {
-    height: 30,
+    height: 20,
   },
 });
