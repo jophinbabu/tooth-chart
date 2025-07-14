@@ -1,0 +1,323 @@
+[
+    {
+        "id": "UR8",
+        "name": "Upper Right Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 1,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo":  "UR8",
+        "details": "Diagnosis:root canal"
+    },
+    {
+        "id": "UR7",
+        "name": "Upper Right Second Molar",
+        "type": "Permanent",
+        "number": 2,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UR6",
+        "name": "Upper Right First Molar",
+        "type": "Permanent",
+        "number": 3,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UR5",
+        "name": "Upper Right Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 4,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UR4",
+        "name": "Upper Right First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 5,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UR3",
+        "name": "Upper Right Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 6,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UR2",
+        "name": "Upper Right Lateral Incisor",
+        "type": "Permanent",
+        "number": 7,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UR1",
+        "name": "Upper Right Central Incisor",
+        "type": "Permanent",
+        "number": 8,
+        "quadrant": "Upper Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL1",
+        "name": "Upper Left Central Incisor",
+        "type": "Permanent",
+        "number": 9,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL2",
+        "name": "Upper Left Lateral Incisor",
+        "type": "Permanent",
+        "number": 10,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL3",
+        "name": "Upper Left Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 11,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL4",
+        "name": "Upper Left First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 12,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL5",
+        "name": "Upper Left Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 13,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL6",
+        "name": "Upper Left First Molar",
+        "type": "Permanent",
+        "number": 14,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL7",
+        "name": "Upper Left Second Molar",
+        "type": "Permanent",
+        "number": 15,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "UL8",
+        "name": "Upper Left Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 16,
+        "quadrant": "Upper Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL8",
+        "name": "Lower Left Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 17,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL7",
+        "name": "Lower Left Second Molar",
+        "type": "Permanent",
+        "number": 18,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL6",
+        "name": "Lower Left First Molar",
+        "type": "Permanent",
+        "number": 19,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL5",
+        "name": "Lower Left Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 20,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL4",
+        "name": "Lower Left First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 21,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL3",
+        "name": "Lower Left Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 22,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL2",
+        "name": "Lower Left Lateral Incisor",
+        "type": "Permanent",
+        "number": 23,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LL1",
+        "name": "Lower Left Central Incisor",
+        "type": "Permanent",
+        "number": 24,
+        "quadrant": "Lower Left",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR1",
+        "name": "Lower Right Central Incisor",
+        "type": "Permanent",
+        "number": 25,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR2",
+        "name": "Lower Right Lateral Incisor",
+        "type": "Permanent",
+        "number": 26,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR3",
+        "name": "Lower Right Canine (Cuspid)",
+        "type": "Permanent",
+        "number": 27,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR4",
+        "name": "Lower Right First Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 28,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR5",
+        "name": "Lower Right Second Premolar (Bicuspid)",
+        "type": "Permanent",
+        "number": 29,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR6",
+        "name": "Lower Right First Molar",
+        "type": "Permanent",
+        "number": 30,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR7",
+        "name": "Lower Right Second Molar",
+        "type": "Permanent",
+        "number": 31,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    },
+    {
+        "id": "LR8",
+        "name": "Lower Right Third Molar (Wisdom Tooth)",
+        "type": "Permanent",
+        "number": 32,
+        "quadrant": "Lower Right",
+        "defect": [],
+        "photo": "",
+        "details": ""
+    }
+    
+]
