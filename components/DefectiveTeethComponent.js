@@ -17,7 +17,7 @@ const DefectiveTeethComponent = ({ teethData }) => {
   );
 
   const renderDefectiveToothCard = ({ item: tooth }) => {
-const toothImage = getToothImage(tooth.photo);
+    const toothImage = getToothImage(tooth.photo);
     
     return (
       <View style={styles.defectiveToothCard}>
@@ -37,23 +37,38 @@ const toothImage = getToothImage(tooth.photo);
           </View>
           
           <View style={styles.contentRow}>
-            {tooth.defect && tooth.defect.length > 0 && (
-              <View style={styles.defectsContainer}>
-                <Text style={styles.defectsTitle}>Defects:</Text>
-                <View style={styles.defectsList}>
-                  {tooth.defect.map((defect, index) => (
-                    <Text key={index} style={styles.defectText}>• {defect}</Text>
-                  ))}
-                </View>
-              </View>
+// In the renderDefectiveToothCard function, modify the defects rendering part:
+{tooth.defect && tooth.defect.length > 0 && (
+  <View style={styles.defectsContainer}>
+    <Text style={styles.defectsTitle}>Defects:</Text>
+    <View style={styles.defectsList}>
+      {tooth.defect.map((defect, index) => {
+        // Handle both string and object defect types
+        const defectText = typeof defect === 'string' ? defect : defect.type;
+        const defectDate = typeof defect === 'object' ? defect.date : null;
+        
+        return (
+          <View key={index} style={styles.defectItem}>
+            <Text style={styles.defectText}>• {defectText}</Text>
+            {defectDate && (
+              <Text style={styles.defectDate}>({defectDate})</Text>
             )}
-            
-            {tooth.details && tooth.details.trim() !== '' && (
-              <View style={styles.detailsContainer}>
-                <Text style={styles.detailsTitle}>Details:</Text>
-                <Text style={styles.detailsText}>{tooth.details}</Text>
-              </View>
-            )}
+          </View>
+        );
+      })}
+    </View>
+  </View>
+)}
+{tooth.details && tooth.details.trim() !== '' && (
+  <View style={styles.detailsContainer}>
+    <Text style={styles.detailsTitle}>Details:</Text>
+    <Text style={styles.detailsText}>
+      {tooth.details.startsWith("Diagnosis:") 
+        ? tooth.details 
+        : `Diagnosis: ${tooth.details}`}
+    </Text>
+  </View>
+)}
           </View>
         </View>
       </View>
@@ -72,32 +87,32 @@ const toothImage = getToothImage(tooth.photo);
     );
   }
 
-return (
-  <View style={styles.container}>
-    <View style={styles.headerContainer}>
-      <Text style={styles.sectionTitle}>Defective Teeth Report</Text>
-      <Text style={styles.sectionSubtitle}>
-        {defectiveTeeth.length} tooth{defectiveTeeth.length !== 1 ? 'es' : ''} requiring attention
-      </Text>
-    </View>
+  return (
+    <View style={styles.container}>
+      <View style={styles.headerContainer}>
+        <Text style={styles.sectionTitle}>Defective Teeth Report</Text>
+        <Text style={styles.sectionSubtitle}>
+          {defectiveTeeth.length} tooth{defectiveTeeth.length !== 1 ? 'es' : ''} requiring attention
+        </Text>
+      </View>
 
-    <View style={styles.listContainer}>
-      {defectiveTeeth.map((tooth) => (
-        <View key={tooth.id}>
-          {renderDefectiveToothCard({ item: tooth })}
-        </View>
-      ))}
+      <View style={styles.listContainer}>
+        {defectiveTeeth.map((tooth) => (
+          <View key={tooth.id}>
+            {renderDefectiveToothCard({ item: tooth })}
+          </View>
+        ))}
+      </View>
     </View>
-  </View>
-);
+  );
+};
 
-}
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ffffff',
     borderRadius: 8,
-    padding: 8, // Reduced from 12
-    marginBottom: 10, // Reduced from 15
+    padding: 8,
+    marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -109,30 +124,30 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   headerContainer: {
-    marginBottom: 8, // Reduced spacing
+    marginBottom: 8,
   },
   sectionTitle: {
-    fontSize: 14, // Reduced from 16
+    fontSize: 14,
     fontWeight: '700',
     color: '#1f2937',
-    marginBottom: 2, // Reduced from 4
+    marginBottom: 2,
     textAlign: 'center',
   },
   sectionSubtitle: {
-    fontSize: 11, // Reduced from 12
+    fontSize: 11,
     color: '#6b7280',
     textAlign: 'center',
-    marginBottom: 0, // Removed bottom margin
+    marginBottom: 0,
   },
   listContainer: {
-    paddingBottom: 5, // Reduced from 10
+    paddingBottom: 5,
   },
   defectiveToothCard: {
     flexDirection: 'row',
     backgroundColor: '#fef2f2',
     borderRadius: 6,
-    padding: 6, // Reduced from 8
-    marginBottom: 4, // Reduced from 6
+    padding: 6,
+    marginBottom: 4,
     borderLeftWidth: 3,
     borderLeftColor: '#ef4444',
     shadowColor: '#000',
@@ -147,21 +162,21 @@ const styles = StyleSheet.create({
   toothImageContainer: {
     alignItems: 'center',
     marginRight: 8,
-    minWidth: 45, // Reduced from 50
+    minWidth: 45,
   },
   toothImage: {
-    width: 35, // Reduced from 40
-    height: 35, // Reduced from 40
-    marginBottom: 1, // Reduced from 2
+    width: 35,
+    height: 35,
+    marginBottom: 1,
   },
   toothNumber: {
-    fontSize: 9, // Reduced from 10
+    fontSize: 9,
     fontWeight: '600',
     color: '#374151',
     backgroundColor: '#ffffff',
-    paddingHorizontal: 3, // Reduced from 4
+    paddingHorizontal: 3,
     paddingVertical: 1,
-    borderRadius: 6, // Reduced from 8
+    borderRadius: 6,
     overflow: 'hidden',
   },
   toothInfoContainer: {
@@ -172,16 +187,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 3, // Reduced spacing
+    marginBottom: 3,
   },
   toothName: {
-    fontSize: 11, // Reduced from 12
+    fontSize: 11,
     fontWeight: '600',
     color: '#1f2937',
     flex: 1,
   },
   quadrantText: {
-    fontSize: 9, // Reduced from 10
+    fontSize: 9,
     color: '#6b7280',
     marginLeft: 8,
   },
@@ -195,47 +210,57 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   defectsTitle: {
-    fontSize: 10, // Reduced from 11
+    fontSize: 10,
     fontWeight: '600',
     color: '#dc2626',
-    marginBottom: 1, // Reduced from 2
+    marginBottom: 1,
   },
   defectsList: {
+    // Changed from flexDirection: 'row' to column for better layout
+    flexDirection: 'column',
+  },
+  defectItem: {
     flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 2,
     flexWrap: 'wrap',
   },
   defectText: {
-    fontSize: 9, // Reduced from 10
+    fontSize: 9,
     color: '#374151',
-    marginRight: 8,
-    marginBottom: 1,
+    marginRight: 4,
+  },
+  defectDate: {
+    fontSize: 8,
+    color: '#6b7280',
+    fontStyle: 'italic',
   },
   detailsContainer: {
     flex: 1,
   },
   detailsTitle: {
-    fontSize: 10, // Reduced from 11
+    fontSize: 10,
     fontWeight: '600',
     color: '#059669',
-    marginBottom: 1, // Reduced from 2
+    marginBottom: 1,
   },
   detailsText: {
-    fontSize: 9, // Reduced from 10
+    fontSize: 9,
     color: '#374151',
-    lineHeight: 12, // Reduced from 14
+    lineHeight: 12,
   },
   noDefectsContainer: {
     alignItems: 'center',
-    paddingVertical: 10, // Reduced from 15
+    paddingVertical: 10,
   },
   noDefectsText: {
-    fontSize: 14, // Reduced from 16
+    fontSize: 14,
     fontWeight: '500',
     color: '#059669',
-    marginBottom: 4, // Reduced from 8
+    marginBottom: 4,
   },
   noDefectsSubtext: {
-    fontSize: 12, // Reduced from 14
+    fontSize: 12,
     color: '#6b7280',
     textAlign: 'center',
   },
