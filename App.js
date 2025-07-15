@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import {
   View,
   StyleSheet,
@@ -8,6 +7,7 @@ import {
 } from 'react-native';
 import ToothCard from './components/ToothCard';
 import ToothDetailModal from './components/ToothDetailModal';
+import DefectiveTeethComponent from './components/DefectiveTeethComponent'; // ✅ Import added
 import teethDataJson from './data/teethData.json';
 
 export default function App() {
@@ -40,8 +40,8 @@ export default function App() {
       }
     };
 
-    scrollToToothPair(upperScrollRef, upperTeeth, 5);  // center 8 & 9
-    scrollToToothPair(lowerScrollRef, lowerTeeth, 21);  // center 24 & 25
+    scrollToToothPair(upperScrollRef, upperTeeth, 5);
+    scrollToToothPair(lowerScrollRef, lowerTeeth, 21);
   }, []);
 
   const handleUpdate = (updatedTooth) => {
@@ -51,66 +51,60 @@ export default function App() {
     setTeethData(newData);
   };
 
-const renderTeethRow = (teeth, scrollRef) => {
-  const centerIndex = Math.floor(teeth.length / 2);
+  const renderTeethRow = (teeth, scrollRef) => {
+    const centerIndex = Math.floor(teeth.length / 2);
+
+    return (
+      <ScrollView
+        horizontal
+        ref={scrollRef}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.archScrollContainer}
+      >
+        {teeth.map((tooth, index) => (
+          <React.Fragment key={tooth.id}>
+            <View style={styles.toothWrapper}>
+              <ToothCard tooth={tooth} onPress={setSelectedTooth} />
+            </View>
+            {index === centerIndex - 1 && (
+              <View style={styles.verticalLine} />
+            )}
+          </React.Fragment>
+        ))}
+      </ScrollView>
+    );
+  };
 
   return (
-    <ScrollView
-      horizontal
-      ref={scrollRef}
-      showsHorizontalScrollIndicator={false}
-      contentContainerStyle={styles.archScrollContainer}
-    >
-      {teeth.map((tooth, index) => (
-        <React.Fragment key={tooth.id}>
-          <View style={styles.toothWrapper}>
-            <ToothCard tooth={tooth} onPress={setSelectedTooth} />
-          </View>
-          {index === centerIndex - 1 && (
-            <View style={styles.verticalLine} />
-          )}
-        </React.Fragment>
-      ))}
+    <ScrollView contentContainerStyle={styles.mainContainer}>
+      <View style={styles.archesContainer}>
+        <View style={styles.verticalLineContainer}>
+          {renderTeethRow(upperTeeth, upperScrollRef)}
+          <View style={styles.separatorLine} />
+          {renderTeethRow(lowerTeeth, lowerScrollRef)}
+          <View style={styles.continuousVerticalLine} />
+        </View>
+      </View>
+
+      {/* ✅ DefectiveTeethComponent goes here */}
+      <DefectiveTeethComponent teethData={teethData} />
+
+      <ToothDetailModal
+        visible={!!selectedTooth}
+        tooth={selectedTooth}
+        onClose={() => setSelectedTooth(null)}
+        onUpdate={handleUpdate}
+      />
     </ScrollView>
   );
-};
-
-
- return (
-  <View style={styles.mainContainer}>
-<View style={styles.archesContainer}>
-  <View style={styles.verticalLineContainer}>
-    {renderTeethRow(upperTeeth, upperScrollRef)}
-    
-    {/* ⬇️ Horizontal line between upper and lower row */}
-    <View style={styles.separatorLine} />
-    
-    {renderTeethRow(lowerTeeth, lowerScrollRef)}
-
-    {/* ⬇️ Vertical line in front of both rows */}
-    <View style={styles.continuousVerticalLine} />
-  </View>
-</View>
-
-
-    <ToothDetailModal
-      visible={!!selectedTooth}
-      tooth={selectedTooth}
-      onClose={() => setSelectedTooth(null)}
-      onUpdate={handleUpdate}
-    />
-  </View>
-);
-
 }
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
+    flexGrow: 1,
     backgroundColor: '#ebeff3',
-    justifyContent: 'flex-start',  // Align to top instead of center
+    justifyContent: 'flex-start',
     alignItems: 'center',
-                   // Add some top padding if needed
   },
   archesContainer: {
     position: 'relative',
@@ -131,36 +125,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   separatorLine: {
-  height: 2,
-  backgroundColor: 'black',
-  width: '90%',  // Adjust width as needed
-  marginVertical: 10,
-  alignSelf: 'center',
-},
-
-verticalLine: {
-  width: 2,
-  height: 60, // Adjust if needed
-  backgroundColor: 'black',
-  marginHorizontal: 4,
-  alignSelf: 'center',
-},
-
-verticalLineContainer: {
-  position: 'relative',
-  width: '100%',
-  alignItems: 'center',
-  color:'red',
-},
-
-continuousVerticalLine: {
-  position: 'absolute',
-  width: 2,
-  height: 130, // Adjust based on how far apart your rows are
-  backgroundColor: 'black',
-  top: '34%',  // You might need to fine-tune this depending on padding/margin
-  zIndex: 1,
-},
-
-  // Removed centerLine style entirely since it's unused now
+    height: 2,
+    backgroundColor: 'black',
+    width: '90%',
+    marginVertical: 10,
+    alignSelf: 'center',
+  },
+  verticalLine: {
+    width: 2,
+    height: 60,
+    backgroundColor: 'black',
+    marginHorizontal: 4,
+    alignSelf: 'center',
+  },
+  verticalLineContainer: {
+    position: 'relative',
+    width: '100%',
+    alignItems: 'center',
+  },
+  continuousVerticalLine: {
+    position: 'absolute',
+    width: 2,
+    height: 130,
+    backgroundColor: 'black',
+    top: '34%',
+    zIndex: 1,
+  },
 });
