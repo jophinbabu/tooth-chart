@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
 import {
   View,
   StyleSheet,
@@ -13,20 +14,35 @@ export default function App() {
   const [selectedTooth, setSelectedTooth] = useState(null);
   const [teethData, setTeethData] = useState(teethDataJson);
 
-  // Prepare upper and lower rows (left and right split)
-  const upperRight = teethData
-    .filter(t => t.quadrant === 'Upper Right')
-    .sort((a, b) => b.number - a.number);
-  const upperLeft = teethData
-    .filter(t => t.quadrant === 'Upper Left')
+  const screenWidth = Dimensions.get('window').width;
+
+  const upperScrollRef = useRef(null);
+  const lowerScrollRef = useRef(null);
+
+  const upperTeeth = teethData
+    .filter(t => t.quadrant.startsWith('Upper'))
     .sort((a, b) => a.number - b.number);
 
-  const lowerLeft = teethData
-    .filter(t => t.quadrant === 'Lower Left')
-    .sort((a, b) => b.number - a.number);
-  const lowerRight = teethData
-    .filter(t => t.quadrant === 'Lower Right')
+  const lowerTeeth = teethData
+    .filter(t => t.quadrant.startsWith('Lower'))
     .sort((a, b) => a.number - b.number);
+
+  useEffect(() => {
+    const TOOTH_WIDTH = 55;
+    const TOOTH_MARGIN = 7;
+    const TOTAL_WIDTH = TOOTH_WIDTH + TOOTH_MARGIN * 2;
+
+    const scrollToToothPair = (scrollRef, teeth, centerToothNumber) => {
+      const index = teeth.findIndex(t => t.number === centerToothNumber);
+      if (scrollRef.current && index !== -1) {
+        const offset = TOTAL_WIDTH * index - screenWidth / 2 + TOTAL_WIDTH;
+        scrollRef.current.scrollTo({ x: offset, animated: false });
+      }
+    };
+
+    scrollToToothPair(upperScrollRef, upperTeeth, 5);  // center 8 & 9
+    scrollToToothPair(lowerScrollRef, lowerTeeth, 21);  // center 24 & 25
+  }, []);
 
   const handleUpdate = (updatedTooth) => {
     const newData = teethData.map(t =>
@@ -35,59 +51,116 @@ export default function App() {
     setTeethData(newData);
   };
 
-  const renderArch = (leftTeeth, rightTeeth, isUpper) => (
-    <View style={styles.rowContainer}>
-      {leftTeeth.map(tooth => (
-        <ToothCard key={tooth.id} tooth={tooth} onPress={setSelectedTooth} />
-      ))}
-      <View style={isUpper ? styles.crossLineUpper : styles.crossLineLower} />
-      {rightTeeth.map(tooth => (
-        <ToothCard key={tooth.id} tooth={tooth} onPress={setSelectedTooth} />
-      ))}
-    </View>
-  );
+const renderTeethRow = (teeth, scrollRef) => {
+  const centerIndex = Math.floor(teeth.length / 2);
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* Upper row */}
-      {renderArch(upperRight, upperLeft, true)}
-
-      {/* Lower row */}
-      {renderArch(lowerLeft, lowerRight, false)}
-
-      <ToothDetailModal
-        visible={!!selectedTooth}
-        tooth={selectedTooth}
-        onClose={() => setSelectedTooth(null)}
-        onUpdate={handleUpdate}
-      />
+    <ScrollView
+      horizontal
+      ref={scrollRef}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={styles.archScrollContainer}
+    >
+      {teeth.map((tooth, index) => (
+        <React.Fragment key={tooth.id}>
+          <View style={styles.toothWrapper}>
+            <ToothCard tooth={tooth} onPress={setSelectedTooth} />
+          </View>
+          {index === centerIndex - 1 && (
+            <View style={styles.verticalLine} />
+          )}
+        </React.Fragment>
+      ))}
     </ScrollView>
   );
+};
+
+
+ return (
+  <View style={styles.mainContainer}>
+<View style={styles.archesContainer}>
+  <View style={styles.verticalLineContainer}>
+    {renderTeethRow(upperTeeth, upperScrollRef)}
+    
+    {/* ⬇️ Horizontal line between upper and lower row */}
+    <View style={styles.separatorLine} />
+    
+    {renderTeethRow(lowerTeeth, lowerScrollRef)}
+
+    {/* ⬇️ Vertical line in front of both rows */}
+    <View style={styles.continuousVerticalLine} />
+  </View>
+</View>
+
+
+    <ToothDetailModal
+      visible={!!selectedTooth}
+      tooth={selectedTooth}
+      onClose={() => setSelectedTooth(null)}
+      onUpdate={handleUpdate}
+    />
+  </View>
+);
+
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 30,
-    backgroundColor: '#f4faff',
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#ebeff3',
+    justifyContent: 'flex-start',  // Align to top instead of center
     alignItems: 'center',
+                   // Add some top padding if needed
   },
-  rowContainer: {
+  archesContainer: {
+    position: 'relative',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 20,
+  },
+  archScrollContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 35,
+    paddingHorizontal: 0,
+    marginVertical: 15,
   },
-  crossLineUpper: {
-    width: 1,
-    height: 70,
-    backgroundColor: '#000',
-    marginHorizontal: 10,
-    transform: [{ rotate: '45deg' }],
+  toothWrapper: {
+    marginHorizontal: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  crossLineLower: {
-    width: 1,
-    height: 70,
-    backgroundColor: '#000',
-    marginHorizontal: 10,
-    transform: [{ rotate: '-45deg' }],
-  },
+  separatorLine: {
+  height: 2,
+  backgroundColor: 'black',
+  width: '90%',  // Adjust width as needed
+  marginVertical: 10,
+  alignSelf: 'center',
+},
+
+verticalLine: {
+  width: 2,
+  height: 60, // Adjust if needed
+  backgroundColor: 'black',
+  marginHorizontal: 4,
+  alignSelf: 'center',
+},
+
+verticalLineContainer: {
+  position: 'relative',
+  width: '100%',
+  alignItems: 'center',
+  color:'red',
+},
+
+continuousVerticalLine: {
+  position: 'absolute',
+  width: 2,
+  height: 130, // Adjust based on how far apart your rows are
+  backgroundColor: 'black',
+  top: '34%',  // You might need to fine-tune this depending on padding/margin
+  zIndex: 1,
+},
+
+  // Removed centerLine style entirely since it's unused now
 });
