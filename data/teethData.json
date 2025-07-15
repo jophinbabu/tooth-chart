@@ -1,14 +1,20 @@
 [
+{
+  "id": 1,
+  "name": "Upper Right Third Molar (Wisdom Tooth)",
+  "type": "Permanent",
+  "number": 1,
+  "quadrant": "Upper Right",
+  "defect": [
     {
-        "id": 1,
-        "name": "Upper Right Third Molar (Wisdom Tooth)",
-        "type": "Permanent",
-        "number": 1,
-        "quadrant": "Upper Right",
-        "defect": [],
-        "photo":  "1",
-        "details": "Diagnosis:root canal"
-    },
+      "type": "Root Canal",
+      "date": "2025-07-15"
+    }
+  ],
+  "photo": "1",
+  "details": "Diagnosis: root canal"
+},
+
     {
         "id": 2,
         "name": "Upper Right Second Molar",
@@ -146,9 +152,9 @@
         "type": "Permanent",
         "number": 15,
         "quadrant": "Upper Left",
-        "defect": [],
+        "defect": ["Plaque buildup", "Gingivitis"],
         "photo": "15",
-        "details": ""
+        "details": "Requires deep cleaning"
     },
     {
         "id": 16,
@@ -296,9 +302,9 @@
         "type": "Permanent",
         "number": 30,
         "quadrant": "Lower Right",
-        "defect": [],
+        "defect": ["Crack", "Sensitivity"],
         "photo": "30",
-        "details": ""
+        "details": "Monitor for further damage"
     },
     {
         "id": 31,
