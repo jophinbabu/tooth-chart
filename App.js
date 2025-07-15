@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   View,
   StyleSheet,
-  Text,
   ScrollView,
   Dimensions,
 } from 'react-native';
@@ -14,15 +13,20 @@ export default function App() {
   const [selectedTooth, setSelectedTooth] = useState(null);
   const [teethData, setTeethData] = useState(teethDataJson);
 
-  const screenWidth = Dimensions.get('window').width;
+  // Prepare upper and lower rows (left and right split)
+  const upperRight = teethData
+    .filter(t => t.quadrant === 'Upper Right')
+    .sort((a, b) => b.number - a.number);
+  const upperLeft = teethData
+    .filter(t => t.quadrant === 'Upper Left')
+    .sort((a, b) => a.number - b.number);
 
-  const upperTeeth = teethData
-    .filter(t => t.quadrant.startsWith('Upper'))
-    .sort((a, b) => a.number - b.number); // 1-16
-
-  const lowerTeeth = teethData
-    .filter(t => t.quadrant.startsWith('Lower'))
-    .sort((a, b) => a.number - b.number); // 17-32
+  const lowerLeft = teethData
+    .filter(t => t.quadrant === 'Lower Left')
+    .sort((a, b) => b.number - a.number);
+  const lowerRight = teethData
+    .filter(t => t.quadrant === 'Lower Right')
+    .sort((a, b) => a.number - b.number);
 
   const handleUpdate = (updatedTooth) => {
     const newData = teethData.map(t =>
@@ -31,37 +35,25 @@ export default function App() {
     setTeethData(newData);
   };
 
-  const renderArch = (teeth, label, archKey) => {
-    return (
-      <View style={styles.archWrapper}>
-        <Text style={styles.label}>{label}</Text>
-
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.archScrollContainer}
-        >
-          {teeth.map((tooth, index) => (
-            <View
-              key={tooth.id}
-              style={[
-                styles.toothWrapper,
-                index === 7 && styles.centerSeparatorWrapper, // after 8th tooth
-              ]}
-            >
-              <ToothCard tooth={tooth} onPress={setSelectedTooth} />
-              {index === 7 && <View style={styles.centerLine} />}
-            </View>
-          ))}
-        </ScrollView>
-      </View>
-    );
-  };
+  const renderArch = (leftTeeth, rightTeeth, isUpper) => (
+    <View style={styles.rowContainer}>
+      {leftTeeth.map(tooth => (
+        <ToothCard key={tooth.id} tooth={tooth} onPress={setSelectedTooth} />
+      ))}
+      <View style={isUpper ? styles.crossLineUpper : styles.crossLineLower} />
+      {rightTeeth.map(tooth => (
+        <ToothCard key={tooth.id} tooth={tooth} onPress={setSelectedTooth} />
+      ))}
+    </View>
+  );
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {renderArch(upperTeeth, 'Upper Arch', 'upper')}
-      {renderArch(lowerTeeth, 'Lower Arch', 'lower')}
+      {/* Upper row */}
+      {renderArch(upperRight, upperLeft, true)}
+
+      {/* Lower row */}
+      {renderArch(lowerLeft, lowerRight, false)}
 
       <ToothDetailModal
         visible={!!selectedTooth}
@@ -75,39 +67,27 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 20,
+    paddingVertical: 30,
     backgroundColor: '#f4faff',
     alignItems: 'center',
   },
-  archWrapper: {
-    marginBottom: 30,
-    width: '100%',
-    alignItems: 'center',
-  },
-  label: {
-    fontSize: 18,
-    fontWeight: '600',
-    marginBottom: 10,
-    color: '#333',
-  },
-  archScrollContainer: {
+  rowContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 20,
+    marginBottom: 35,
   },
-  toothWrapper: {
-    marginHorizontal: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  centerSeparatorWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  centerLine: {
+  crossLineUpper: {
     width: 1,
-    height: 50,
+    height: 70,
     backgroundColor: '#000',
-    marginLeft: 5,
+    marginHorizontal: 10,
+    transform: [{ rotate: '45deg' }],
+  },
+  crossLineLower: {
+    width: 1,
+    height: 70,
+    backgroundColor: '#000',
+    marginHorizontal: 10,
+    transform: [{ rotate: '-45deg' }],
   },
 });
