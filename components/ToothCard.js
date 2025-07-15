@@ -19,14 +19,9 @@ const ToothCard = ({ tooth, onPress }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: 70,
-    height: 100,
+    // Removed backgroundColor, elevation, borderRadius, and padding
     marginHorizontal: 7,
     marginVertical: 1,
-    backgroundColor: '#fff',
-    padding: 2,
-    borderRadius: 10,
-    elevation: 2,
     alignItems: 'center',
     justifyContent: 'center',
   },

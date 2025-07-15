@@ -1,83 +1,83 @@
 [
     {
-        "id": "URTM",
+        "id": 1,
         "name": "Upper Right Third Molar (Wisdom Tooth)",
         "type": "Permanent",
         "number": 1,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo":  "URTM",
+        "photo":  "1",
         "details": "Diagnosis:root canal"
     },
     {
-        "id": "URSM",
+        "id": 2,
         "name": "Upper Right Second Molar",
         "type": "Permanent",
         "number": 2,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URSM",
+        "photo": "2",
         "details": ""
     },
     {
-        "id": "URFM",
+        "id": 3,
         "name": "Upper Right First Molar",
         "type": "Permanent",
         "number": 3,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URFM",
+        "photo": "3",
         "details": ""
     },
     {
-        "id": "URSP",
+        "id": 4,
         "name": "Upper Right Second Premolar (Bicuspid)",
         
         "type": "Permanent",
         "number": 4,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URSP",
+        "photo": "4",
         "details": ""
     },
     {
-        "id": "URFP",
+        "id": 5,
         "name": "Upper Right First Premolar (Bicuspid)",
         "type": "Permanent",
         "number": 5,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URFP",
+        "photo": "5",
         "details": ""
     },
     {
-        "id": "URC",
+        "id": 6,
         "name": "Upper Right Canine (Cuspid)",
         "type": "Permanent",
         "number": 6,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URC",
+        "photo": "6",
         "details": ""
     },
     {
-        "id": "URLI",
+        "id": 7,
         "name": "Upper Right Lateral Incisor",
         "type": "Permanent",
         "number": 7,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URLI",
+        "photo": "7",
         "details": ""
     },
     {
-        "id": "URCI",
+        "id": 8,
         "name": "Upper Right Central Incisor",
         "type": "Permanent",
         "number": 8,
         "quadrant": "Upper Right",
         "defect": [],
-        "photo": "URCI",
+        "photo": "8",
         "details": ""
     },
     {
