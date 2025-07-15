@@ -1,31 +1,28 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, ScrollView } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import ToothCard from './components/ToothCard';
 import ToothDetailModal from './components/ToothDetailModal';
 import teethDataJson from './data/teethData.json';
 
-// Utility to chunk array into smaller arrays of a given size
-const chunkArray = (array, size) => {
-  return Array.from({ length: Math.ceil(array.length / size) }, (_, index) =>
-    array.slice(index * size, index * size + size)
-  );
-};
-
 export default function App() {
-
-  
-
   const [selectedTooth, setSelectedTooth] = useState(null);
   const [teethData, setTeethData] = useState(teethDataJson);
 
-  // Organize teeth into upper and lower arches
+  const screenWidth = Dimensions.get('window').width;
+
   const upperTeeth = teethData
     .filter(t => t.quadrant.startsWith('Upper'))
-    .sort((a, b) => a.number - b.number); // 1 - 16
+    .sort((a, b) => a.number - b.number); // 1-16
 
   const lowerTeeth = teethData
     .filter(t => t.quadrant.startsWith('Lower'))
-    .sort((a, b) => a.number - b.number); // 17 - 32
+    .sort((a, b) => a.number - b.number); // 17-32
 
   const handleUpdate = (updatedTooth) => {
     const newData = teethData.map(t =>
@@ -34,27 +31,37 @@ export default function App() {
     setTeethData(newData);
   };
 
+  const renderArch = (teeth, label, archKey) => {
+    return (
+      <View style={styles.archWrapper}>
+        <Text style={styles.label}>{label}</Text>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.archScrollContainer}
+        >
+          {teeth.map((tooth, index) => (
+            <View
+              key={tooth.id}
+              style={[
+                styles.toothWrapper,
+                index === 7 && styles.centerSeparatorWrapper, // after 8th tooth
+              ]}
+            >
+              <ToothCard tooth={tooth} onPress={setSelectedTooth} />
+              {index === 7 && <View style={styles.centerLine} />}
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+    );
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.label}>Upper Arch</Text>
-      {chunkArray(upperTeeth, 4).map((row, index) => (
-        <View key={`upper-${index}`} style={styles.row}>
-          {row.map(tooth => (
-            <ToothCard key={tooth.id} tooth={tooth} onPress={setSelectedTooth} />
-          ))}
-        </View>
-      ))}
-
-      <View style={styles.spacer} />
-
-      <Text style={styles.label}>Lower Arch</Text>
-      {chunkArray(lowerTeeth, 4).map((row, index) => (
-        <View key={`lower-${index}`} style={styles.row}>
-          {row.map(tooth => (
-            <ToothCard key={tooth.id} tooth={tooth} onPress={setSelectedTooth} />
-          ))}
-        </View>
-      ))}
+      {renderArch(upperTeeth, 'Upper Arch', 'upper')}
+      {renderArch(lowerTeeth, 'Lower Arch', 'lower')}
 
       <ToothDetailModal
         visible={!!selectedTooth}
@@ -69,22 +76,38 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
-    paddingHorizontal: 10,
     backgroundColor: '#f4faff',
     alignItems: 'center',
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 12,
+  archWrapper: {
+    marginBottom: 30,
+    width: '100%',
+    alignItems: 'center',
   },
   label: {
     fontSize: 18,
     fontWeight: '600',
-    marginBottom: 1,
+    marginBottom: 10,
     color: '#333',
   },
-  spacer: {
-    height: 20,
+  archScrollContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+  },
+  toothWrapper: {
+    marginHorizontal: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  centerSeparatorWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  centerLine: {
+    width: 1,
+    height: 50,
+    backgroundColor: '#000',
+    marginLeft: 5,
   },
 });
