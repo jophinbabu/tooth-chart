@@ -4,7 +4,7 @@ import { getToothImage } from './toothImages'; // Adjust path if needed
 
 
 const ToothCard = ({ tooth, onPress }) => {
-  const imageSource = getToothImage(tooth.photo); 
+  const imageSource = getToothImage(tooth.photo); //a
 
 
   return (
@@ -20,13 +20,14 @@ const ToothCard = ({ tooth, onPress }) => {
 const styles = StyleSheet.create({
   card: {
     // Removed backgroundColor, elevation, borderRadius, and padding
-    marginHorizontal: 7,
+    marginHorizontal: 0,
     marginVertical: 1,
     alignItems: 'center',
     justifyContent: 'center',
+   
   },
   image: {
-    width: 55,
+    width: 25,
     height: 55,
     marginBottom: 6,
   },
