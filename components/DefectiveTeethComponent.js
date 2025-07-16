@@ -10,64 +10,69 @@ import {
 import { getToothImage } from './toothImages'; // ✅ Correct import
 
 const DefectiveTeethComponent = ({ teethData }) => {
-  // Filter teeth that have defects or details
-  const defectiveTeeth = teethData.filter(tooth => 
-    (tooth.defect && tooth.defect.length > 0) || 
-    (tooth.details && tooth.details.trim() !== '')
-  );
+  // ✅ Moved inside the component
+  const defectiveTeeth = teethData
+    .filter(tooth =>
+      (tooth.defect && tooth.defect.length > 0) ||
+      (tooth.details && tooth.details.trim() !== '')
+    )
+    .sort((a, b) => {
+      const aTime = a.lastUpdated ? new Date(a.lastUpdated).getTime() : 0;
+      const bTime = b.lastUpdated ? new Date(b.lastUpdated).getTime() : 0;
+      return bTime - aTime; // Newest on top
+    });
 
   const renderDefectiveToothCard = ({ item: tooth }) => {
     const toothImage = getToothImage(tooth.photo);
-    
+
     return (
       <View style={styles.defectiveToothCard}>
         <View style={styles.toothImageContainer}>
-          <Image 
-            source={toothImage} 
+          <Image
+            source={toothImage}
             style={styles.toothImage}
             resizeMode="contain"
           />
           <Text style={styles.toothNumber}>#{tooth.number}</Text>
         </View>
-        
+
         <View style={styles.toothInfoContainer}>
           <View style={styles.headerRow}>
             <Text style={styles.toothName}>{tooth.name}</Text>
             <Text style={styles.quadrantText}>{tooth.quadrant}</Text>
           </View>
-          
+
           <View style={styles.contentRow}>
+            {tooth.defect && tooth.defect.length > 0 && (
+              <View style={styles.defectsContainer}>
+                <Text style={styles.defectsTitle}>Defects:</Text>
+                <View style={styles.defectsList}>
+                  {tooth.defect.map((defect, index) => {
+                    const defectText =
+                      typeof defect === 'string' ? defect : String(defect?.type || '');
+                    const defectDate = typeof defect === 'object' ? defect.date : null;
 
-{tooth.defect && tooth.defect.length > 0 && (
-  <View style={styles.defectsContainer}>
-    <Text style={styles.defectsTitle}>Defects:</Text>
-    <View style={styles.defectsList}>
-     {tooth.defect.map((defect, index) => {
-  const defectText = typeof defect === 'string' ? defect : String(defect?.type || '');
-  const defectDate = typeof defect === 'object' ? defect.date : null;
-
-  return (
-    <View key={`${defectText}_${index}`} style={styles.defectItem}>
-      <Text style={styles.defectText}>
-        • {defectText} {defectDate ? `(${defectDate})` : ''}
-      </Text>
-    </View>
-  );
-})}
-
-    </View>
-  </View>
-)}
-{tooth.details && tooth.details.trim() !== '' && (
-  <View style={styles.detailsContainer}>
-    <Text style={styles.detailsTitle}>Details:</Text>
-    <Text style={styles.detailsText}>
-      {tooth.details.startsWith("Diagnosis:") 
-        ? tooth.details 
-        : `Diagnosis: ${tooth.details}`}
-    </Text>
-  </View>
-)}
+                    return (
+                      <View key={`${defectText}_${index}`} style={styles.defectItem}>
+                        <Text style={styles.defectText}>
+                          • {defectText} {defectDate ? `(${defectDate})` : ''}
+                        </Text>
+                      </View>
+                    );
+                  })}
+                </View>
+              </View>
+            )}
+            {tooth.details && tooth.details.trim() !== '' && (
+              <View style={styles.detailsContainer}>
+                <Text style={styles.detailsTitle}>Details:</Text>
+                <Text style={styles.detailsText}>
+                  {tooth.details.startsWith('Diagnosis:')
+                    ? tooth.details
+                    : `Diagnosis: ${tooth.details}`}
+                </Text>
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -108,18 +113,19 @@ const DefectiveTeethComponent = ({ teethData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#ffffff',
+    // backgroundColor: '#f3f0f0',
+    
     borderRadius: 8,
     padding: 8,
     marginBottom: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 2,
-    elevation: 3,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.08,
+    // shadowRadius: 2,
+    // elevation: 3,
     width: '95%',
   },
   headerContainer: {
@@ -143,12 +149,12 @@ const styles = StyleSheet.create({
   },
   defectiveToothCard: {
     flexDirection: 'row',
-    backgroundColor: '#fef2f2',
+    backgroundColor: '#f8f2f2',
     borderRadius: 6,
     padding: 6,
     marginBottom: 4,
-    borderLeftWidth: 3,
-    borderLeftColor: '#ef4444',
+    borderLeftWidth: 5,
+    borderLeftColor: '#b6087c',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -209,9 +215,9 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   defectsTitle: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: '#dc2626',
+    fontSize: 11,
+    fontWeight: '900',
+    color: '#b6087c',
     marginBottom: 1,
   },
   defectsList: {
@@ -228,6 +234,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: '#374151',
     marginRight: 4,
+    fontWeight: '600'
   },
   defectDate: {
     fontSize: 8,
@@ -247,6 +254,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
     color: '#374151',
     lineHeight: 12,
+    fontWeight: '600'
   },
   noDefectsContainer: {
     alignItems: 'center',

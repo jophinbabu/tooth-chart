@@ -147,9 +147,9 @@
         "type": "Permanent",
         "number": 15,
         "quadrant": "Upper Left",
-        "defect": ["Plaque buildup", "Gingivitis"],
+        "defect": [],
         "photo": "15",
-        "details": "Requires deep cleaning"
+        "details": ""
     },
     {
         "id": 16,
@@ -297,9 +297,9 @@
         "type": "Permanent",
         "number": 30,
         "quadrant": "Lower Right",
-        "defect": ["Crack", "Sensitivity"],
+        "defect": [],
         "photo": "30",
-        "details": "Monitor for further damage"
+        "details": ""
     },
     {
         "id": 31,

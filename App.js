@@ -45,11 +45,17 @@ export default function App() {
   }, []);
 
   const handleUpdate = (updatedTooth) => {
-    const newData = teethData.map(t =>
-      t.id === updatedTooth.id ? updatedTooth : t
-    );
-    setTeethData(newData);
+  const timestampedTooth = {
+    ...updatedTooth,
+    lastUpdated: new Date().toISOString(),
   };
+
+  const newData = teethData.map(t =>
+    t.id === updatedTooth.id ? timestampedTooth : t
+  );
+  setTeethData(newData);
+};
+
 
   const renderTeethRow = (teeth, scrollRef) => {
     const centerIndex = Math.floor(teeth.length / 2);
@@ -112,7 +118,7 @@ export default function App() {
 const styles = StyleSheet.create({
   mainContainer: {
     flexGrow: 1,
-    backgroundColor: '#ebeff3',
+    backgroundColor: '#fbfdff',
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
@@ -128,7 +134,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 0,
-    marginVertical: 15,
+    marginVertical: 1,
   },
   toothWrapper: {
     marginHorizontal: 0,
