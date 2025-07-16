@@ -5,14 +5,9 @@
   "type": "Permanent",
   "number": 1,
   "quadrant": "Upper Right",
-  "defect": [
-    {
-      "type": "Root Canal",
-      "date": "2025-07-15"
-    }
-  ],
+  "defect": [],
   "photo": "1",
-  "details": "Diagnosis: root canal"
+  "details": ""
 },
 
     {
