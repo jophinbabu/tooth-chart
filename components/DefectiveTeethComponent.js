@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   defectsTitle: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '900',
     color: '#b6087c',
     marginBottom: 1,
