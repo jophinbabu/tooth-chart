@@ -39,7 +39,14 @@ const DefectiveTeethComponent = ({ teethData }) => {
         <View style={styles.toothInfoContainer}>
           <View style={styles.headerRow}>
             <Text style={styles.toothName}>{tooth.name}</Text>
-            <Text style={styles.quadrantText}>{tooth.quadrant}</Text>
+  <View style={styles.rightHeaderContainer}>
+    {tooth.lastUpdated && (
+      <Text style={styles.lastUpdatedText}>
+        {new Date(tooth.lastUpdated).toLocaleDateString()}
+      </Text>
+    )}
+    
+  </View>
           </View>
 
           <View style={styles.contentRow}>
@@ -271,6 +278,15 @@ const styles = StyleSheet.create({
     color: '#6b7280',
     textAlign: 'center',
   },
+  rightHeaderContainer: {
+  alignItems: 'flex-end',
+},
+
+lastUpdatedText: {
+  fontSize: 11,
+  color: 'black',
+},
+
 });
 
 export default DefectiveTeethComponent;
