@@ -37,25 +37,24 @@ const DefectiveTeethComponent = ({ teethData }) => {
           </View>
           
           <View style={styles.contentRow}>
-// In the renderDefectiveToothCard function, modify the defects rendering part:
+
 {tooth.defect && tooth.defect.length > 0 && (
   <View style={styles.defectsContainer}>
     <Text style={styles.defectsTitle}>Defects:</Text>
     <View style={styles.defectsList}>
-      {tooth.defect.map((defect, index) => {
-        // Handle both string and object defect types
-        const defectText = typeof defect === 'string' ? defect : defect.type;
-        const defectDate = typeof defect === 'object' ? defect.date : null;
-        
-        return (
-          <View key={index} style={styles.defectItem}>
-            <Text style={styles.defectText}>• {defectText}</Text>
-            {defectDate && (
-              <Text style={styles.defectDate}>({defectDate})</Text>
-            )}
-          </View>
-        );
-      })}
+     {tooth.defect.map((defect, index) => {
+  const defectText = typeof defect === 'string' ? defect : String(defect?.type || '');
+  const defectDate = typeof defect === 'object' ? defect.date : null;
+
+  return (
+    <View key={`${defectText}_${index}`} style={styles.defectItem}>
+      <Text style={styles.defectText}>
+        • {defectText} {defectDate ? `(${defectDate})` : ''}
+      </Text>
+    </View>
+  );
+})}
+
     </View>
   </View>
 )}

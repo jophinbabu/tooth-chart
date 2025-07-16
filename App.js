@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 20,
+    backgroundColor: '#ffe6eb',
   },
   archScrollContainer: {
     flexDirection: 'row',
