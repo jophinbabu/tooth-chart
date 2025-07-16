@@ -61,16 +61,26 @@ export default function App() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.archScrollContainer}
       >
-        {teeth.map((tooth, index) => (
-          <React.Fragment key={tooth.id}>
-            <View style={styles.toothWrapper}>
-              <ToothCard tooth={tooth} onPress={setSelectedTooth} />
-            </View>
-            {index === centerIndex - 1 && (
-              <View style={styles.verticalLine} />
-            )}
-          </React.Fragment>
-        ))}
+      
+      
+      {teeth.map((tooth, index) => {
+  // Insert a spacer after the left center tooth
+  const isLeftOfCenter = index === centerIndex - 1;
+
+  return (
+    <React.Fragment key={tooth.id}>
+      <View style={styles.toothWrapper}>
+        <ToothCard tooth={tooth} onPress={setSelectedTooth} />
+      </View>
+
+      {isLeftOfCenter && (
+        <View style={styles.toothSpacer} />
+      )}
+    </React.Fragment>
+  );
+})}
+
+
       </ScrollView>
     );
   };
@@ -145,11 +155,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   continuousVerticalLine: {
-    position: 'absolute',
-    width: 2,
-    height: 130,
-    backgroundColor: 'black',
-    top: '34%',
-    zIndex: 1,
+     position: 'absolute',
+  width: 1,
+  height: '100%', // Stretches from top to bottom of archesContainer
+  backgroundColor: 'black',
+  left: '50%', // Centers horizontally between teeth 8 and 9
+  transform: [{ translateX: -1 }], // Adjust for 2px width (to center it)
+  zIndex: 1,
+  
   },
+
+  toothSpacer: {
+  width: 7, // 👈 Adjust this value to control the gap size
+},
+
 });
